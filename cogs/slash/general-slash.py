@@ -79,7 +79,7 @@ class General(commands.Cog, name="general-slash"):
             description=f"{interaction.guild}",
             color=0x9C84EF
         )
-        if interaction.guild.icon is not None:            
+        if interaction.guild.icon is not None:
             embed.set_thumbnail(
                 url=interaction.guild.icon.url
             )

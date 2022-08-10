@@ -1,10 +1,9 @@
 {
-  "prefix": "YOUR_BOT_PREFIX_HERE",
-  "token": "YOUR_BOT_TOKEN_HERE",
-  "permissions": "YOUR_BOT_PERMISSIONS_HERE",
-  "application_id": "YOUR_APPLICATION_ID_HERE",
+  "prefix": "goblinbot",
+  "token": "MTAwNjY1MTI4NDMxMDQ3MDg0Ng.GI2eD4.eUrvBu5P1unyFHuUICT7_itEM96SiuH3RkZLeE",
+  "permissions": "414733289538E",
+  "application_id": "1006651284310470846",
   "owners": [
-    123456789,
-    987654321
+    822207205201150015
   ]
 }
