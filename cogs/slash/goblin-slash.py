@@ -7,10 +7,12 @@ Version: 4.1.1
 """
 
 import disnake
-from disnake import ApplicationCommandInteraction, Option, OptionType
+from disnake import ApplicationCommandInteraction, Option, OptionType, Role, File
 from disnake.ext import commands
 
 from helpers import checks
+from helpers import goblinhelper
+from helpers import battle
 
 from chia.rpc.wallet_rpc_client import WalletRpcClient
 from chia.util.default_root import DEFAULT_ROOT_PATH
@@ -20,136 +22,116 @@ from chia.util.bech32m import decode_puzzle_hash
 
 import aiohttp
 import json
+import random
+import math
 
-def writeAddresses(addresses):
-    f = open("addresses.json", "w")
-    f.write(json.dumps(addresses))
+def writePlayers(players):
+    f = open("players.json", "w")
+    json.dump(players, f, indent=4)
     f.close
 
-def readAddresses():
+def readPlayers():
     try:
-        f = open("addresses.json", "r")
-        addresses = json.load(f)
+        f = open("players.json", "r")
+        players = json.load(f)
         f.close()
     except:
-        print("Read Addresses Failed")
+        print("Read players Failed")
         return {}
-    return addresses
+    return players
 
 # Here we name the cog and create a new class for the cog.
 class Goblin(commands.Cog, name="goblin-slash"):
     def __init__(self, bot):
         self.bot = bot
-        self.addresses = readAddresses()
+        self.players = readPlayers()
         self.config = load_config(DEFAULT_ROOT_PATH, "config.yaml")
         self.full_node_rpc_port = self.config['full_node']['rpc_port']
 
-
     # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
     @commands.slash_command(
-        name="goblinstats",
-        description="Gets the stats of a goblin by number",
-    )
-    # This will only allow non-blacklisted members to execute the command
-    @checks.not_blacklisted()
-    async def goblinstats(self, interaction: ApplicationCommandInteraction):
-        embed = disnake.Embed(
-            title="Address set",
-            description="Set address: ",
-            color=0xE02B2B
-        )
-        await interaction.send(embed=embed)
-
-
-    # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
-    @commands.slash_command(
-        name="mygoblins",
-        description="Get a list of your goblins",
-    )
-    # This will only allow non-blacklisted members to execute the command
-    @checks.not_blacklisted()
-    async def mygoblins(self, interaction: ApplicationCommandInteraction):
-        address = self.addresses[str(interaction.author.id)]
-        async with aiohttp.ClientSession() as session:
-            headers = {'x-auth-id': 'tkn1qqqkvqgzjfrsnrgz9vzs426texw703kkv065zuckvqgzjfrsjqqq2e48d0'}
-            async with session.get("https://api2.spacescan.io/api/nft/balance/" + address, headers=headers) as request:
-                print(f"status: {request.status} {request.headers}")
-                if request.status == 200:
-                    data = await request.json()  # For some reason the returned content is of type JavaScript
-                    print(data)
-                    list = ""
-                    for token in data['tokens']:
-                        list += token['nft_name'] + "\n"
-                    embed = disnake.Embed(
-                        title="Goblins",
-                        description=f"You have {len(data['tokens'])} Goblins!\n {list}",
-                        color=0x9C84EF
-                    )
-                else:
-                    embed = disnake.Embed(
-                        title="Error!",
-                        description="There is something wrong with the API, please try again later",
-                        color=0xE02B2B
-                    )
-
-        await interaction.send(embed=embed)
-
-
-    # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
-    @commands.slash_command(
-        name="myaddress",
-        description="Get the address of your goblin army",
-    )
-    # This will only allow non-blacklisted members to execute the command
-    @checks.not_blacklisted()
-    async def myaddress(self, interaction: ApplicationCommandInteraction) -> None:
-        try:
-            embed = disnake.Embed(
-                title="Your Goblin Army Address",
-                description="Your address is: " + self.addresses[str(interaction.author.id)],
-                color=0xE02B2B
-            )
-        except:
-            embed = disnake.Embed(
-                title="Error",
-                description="You have not set your address yet.",
-                color=0xE02B2B
-            )
-        await interaction.send(embed=embed)
-
-    # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
-    @commands.slash_command(
-        name="findaddress",
-        description="Get the address of another users goblin army",
+        name="viewusergoblins",
+        description="Get a list of all goblins owned by a users",
         options=[
             Option(
                 name="user",
-                description="The xch address that contains your goblins",
+                description="The user whose goblins you want to view.",
                 type=OptionType.user,
                 required=True
             )]
     )
     # This will only allow non-blacklisted members to execute the command
     @checks.not_blacklisted()
-    async def findaddress(self, interaction: ApplicationCommandInteraction, user: disnake.User) -> None:
+    async def viewusergoblins(self, interaction: ApplicationCommandInteraction, user: disnake.User):
+        player = self.players[str(user.id)]
+        goblins = await goblinhelper.getAddressGoblins(player["address"])
+        if goblins != None:
+            current_embed = disnake.Embed(
+                title=f"{user.display_name} has {len(goblins)} Goblins",
+                description=f"Goblins",
+                color=user.color
+            )
+            embeds = []
+            current_embed = None
+            embedNum = 1
+            for i, goblin in enumerate(goblins):
+                if i % 24 == 0:
+                    end = min(24*embedNum, len(goblins))
+                    current_embed = disnake.Embed(
+                        title=f"{user.display_name} has {len(goblins)} Goblins",
+                        description=f"{(embedNum-1)*24+1} -> {end}",
+                        color=user.color
+                    )
+                    embeds.append(current_embed)
+                    embedNum += 1
+                current_embed.add_field(name=f"{goblin['name']} {goblin['emojis']}", value=f"https://www.spacescan.io/xch/nft/{goblin['id']}")
+
+            for e in embeds:
+                await interaction.send(embed=e)
+        else:
+            embed = disnake.Embed(
+                title=f"{interaction.author.display_name} has no goblins...",
+                description=f"That's pretty sad.",
+                color=0xE02B2B
+            )
+            await interaction.send(embed=embed)
+
+
+
+    # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
+    @commands.slash_command(
+        name="getaddress",
+        description="Get the address of a users goblin army",
+        options=[
+            Option(
+                name="user",
+                description="The user whose address you want.",
+                type=OptionType.user,
+                required=True
+            )]
+    )
+    # This will only allow non-blacklisted members to execute the command
+    @checks.not_blacklisted()
+    async def getaddress(self, interaction: ApplicationCommandInteraction, user: disnake.User) -> None:
         try:
             embed = disnake.Embed(
                 title=f"{user}'s Goblin Army Address",
-                description=f"{user}'s address is: " + self.addresses[str(user.id)],
+                description=f"{user}'s address is: " + self.players[str(user.id)]["address"],
                 color=0xE02B2B
             )
         except:
             embed = disnake.Embed(
                 title="Error",
                 description=f"{user} has not set their address.",
-                color=0xE02B2B
+                color=user.color
             )
         await interaction.send(embed=embed)
 
 
+
     # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
     @commands.slash_command(
-        name="setgoblinaddress",
+        name="setaddress",
         description="set your goblin army xch address",
         options=[
             Option(
@@ -161,17 +143,334 @@ class Goblin(commands.Cog, name="goblin-slash"):
     )
     # This will only allow non-blacklisted members to execute the command
     @checks.not_blacklisted()
-    async def setgoblinaddress(self, interaction: ApplicationCommandInteraction, address: str="") -> None:
+    async def setaddress(self, interaction: ApplicationCommandInteraction, address: str="") -> None:
 
-        self.addresses[str(interaction.author.id)] = address
-        writeAddresses(self.addresses)
+        for playerID in self.players.keys():
+            if str(interaction.author.id) not in self.players:
+                if playerID != self.players[str(interaction.author.id)]:
+                    if self.players[playerID]["address"] == self.players[str(interaction.author.id)]["address"] and (playerID != str(interaction.author.id)):
+                        embed = disnake.Embed(
+                            title="Address already in use!",
+                            description=f"Address {address} is being used by: {str(self.players[playerID]['name'])}. Please notify an Admin if this is your address.",
+                            color=0xE02B2B
+                        )
+                        await interaction.send(embed=embed)
+                        return
+
+        if interaction.author.id not in self.players:
+            self.players[str(interaction.author.id)] = {}
+
+        self.players[str(interaction.author.id)]["address"] = address
+        self.players[str(interaction.author.id)]["name"] = interaction.author.name
+
+        writePlayers(self.players)
+
+        random.seed(interaction.author.id)
+        faction = random.randint(1, 4)
+        if faction == 1:
+            role = disnake.utils.find(lambda r: r.name == 'Follower of the New King', interaction.channel.guild.roles)
+        elif faction == 2:
+            role = disnake.utils.find(lambda r: r.name == 'Follower of the Old King', interaction.channel.guild.roles)
+        elif faction == 3:
+            role = disnake.utils.find(lambda r: r.name == 'Follower of the Mage Supremacy', interaction.channel.guild.roles)
+        else:
+            role = disnake.utils.find(lambda r: r.name == 'Follower of the Lords Alliance', interaction.channel.guild.roles)
+
+        await interaction.author.add_roles(role)
+
         embed = disnake.Embed(
             title="Address set",
-            description="Set address " + address + " for: " + str(interaction.author),
-            color=0xE02B2B
+            description=f"Set address {address} for: {str(interaction.author.display_name)}\n You are part of the {role.name} faction!",
+            color=role.color
         )
         await interaction.send(embed=embed)
 
+
+
+    # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
+    @commands.slash_command(
+        name="goblindata",
+        description="Display a specific goblin and it's metadata.",
+        options=[
+            Option(
+                name="number",
+                description="The goblin number.",
+                type=OptionType.integer,
+                required=True
+            )]
+    )
+    # This will only allow non-blacklisted members to execute the command
+    @checks.not_blacklisted()
+    async def goblindata(self, interaction: ApplicationCommandInteraction, number: int) -> None:
+        try:
+            data = goblinhelper.getGoblinData(number)
+            attrs = data['attributes']
+            color = 0x000000
+            for attr in attrs:
+                if attr['trait_type'] == "Faction":
+                    if attr["value"] == "New King":
+                        role = disnake.utils.find(lambda r: r.name == 'Follower of the New King', interaction.channel.guild.roles)
+                    elif attr["value"] == "Old King":
+                        role = disnake.utils.find(lambda r: r.name == 'Follower of the Old King', interaction.channel.guild.roles)
+                    elif attr["value"] == "Mage Supremacy":
+                        role = disnake.utils.find(lambda r: r.name == 'Follower of the Mage Supremacy', interaction.channel.guild.roles)
+                    else:
+                        role = disnake.utils.find(lambda r: r.name == 'Follower of the Lords Alliance', interaction.channel.guild.roles)
+                    color = role.color
+                    break
+
+            embed = disnake.Embed(
+                title=data["name"],
+                description=data["description"],
+                color=color
+            )
+            for attr in attrs:
+                if "Piercing" not in attr['trait_type']:
+                    embed.add_field(name=attr['trait_type'], value=attr['value'], inline=True)
+            embed.set_image(file=File(f"GoblinData/img/{number}.jpg"))
+        except Exception as e:
+            print(e)
+            embed = disnake.Embed(
+                title="Error",
+                description=f"Goblin not found",
+                color=0xE02B2B
+            )
+        await interaction.send(embed=embed)
+
+
+
+    # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
+    @commands.slash_command(
+        name="goblinstats",
+        description="Display the stats of a specific goblin.",
+        options=[
+            Option(
+                name="number",
+                description="The goblin number.",
+                type=OptionType.integer,
+                required=True
+            )]
+    )
+    # This will only allow non-blacklisted members to execute the command
+    @checks.not_blacklisted()
+    async def goblinstats(self, interaction: ApplicationCommandInteraction, number: int) -> None:
+        try:
+            stats = goblinhelper.getGoblinStats(number)
+            color = 0x000000
+            if stats["Faction"] == "New King":
+                role = disnake.utils.find(lambda r: r.name == 'Follower of the New King', interaction.channel.guild.roles)
+            elif stats["Faction"] == "Old King":
+                role = disnake.utils.find(lambda r: r.name == 'Follower of the Old King', interaction.channel.guild.roles)
+            elif stats["Faction"] == "Mage Supremacy":
+                role = disnake.utils.find(lambda r: r.name == 'Follower of the Mage Supremacy', interaction.channel.guild.roles)
+            else:
+                role = disnake.utils.find(lambda r: r.name == 'Follower of the Lords Alliance', interaction.channel.guild.roles)
+            color = role.color
+
+            embed = disnake.Embed(
+                title=stats['Name'],
+                description=f"Lvl: {stats['Level']} {stats['Description']} Exp:{stats['Experience']}/{stats['Level']*100}",
+                color=color
+            )
+
+            embed.add_field(name="Battle Stats", value="Current stats used for battle", inline=False)
+            for key in stats["Battle Stats"].keys():
+                embed.add_field(name=key, value=stats['Battle Stats'][key], inline=True)
+
+            embed.add_field(name="Base Stats", value="Characters base stats", inline=False)
+            for key in stats["Base Stats"].keys():
+                embed.add_field(name=key, value=stats['Base Stats'][key], inline=True)
+
+            embed.set_image(file=File(f"GoblinData/img/{number}.jpg"))
+        except Exception as e:
+            print(e)
+            embed = disnake.Embed(
+                title="Error",
+                description=f"Goblin not found",
+                color=0xE02B2B
+            )
+        await interaction.send(embed=embed)
+
+
+
+    # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
+    @commands.slash_command(
+        name="postchallenge",
+        description="Post a challenge",
+        options=[
+            Option(
+                name="name",
+                description="The name of the challenge",
+                type=OptionType.string,
+                required=True
+            ),
+            Option(
+                name="description",
+                description="Description of the challenge.",
+                type=OptionType.string,
+                required=True
+            ),
+            Option(
+                name="deadline",
+                description="When the challenge ends.",
+                type=OptionType.string,
+                required=True
+            ),
+            Option(
+                name="reward",
+                description="What the winner of the challenge gets.",
+                type=OptionType.string,
+                required=True
+            ),
+            Option(
+                name="role",
+                description="Role color of the challenge",
+                type=OptionType.string,
+                required=False
+            )]
+    )
+    # This will only allow non-blacklisted members to execute the command
+    @checks.not_blacklisted()
+    @checks.is_owner()
+    async def postchallenge(self, interaction: ApplicationCommandInteraction, name: str, description: str, deadline: str, reward: str, role: str="") -> None:
+        try:
+            if role == "new":
+                color = 0x57F287
+            elif role == "old":
+                color = 0xED4245
+            elif role == "mages":
+                color = 0x3498DB
+            elif role == "lords":
+                color = 0xE67E22
+            else:
+                color = 0x000000
+
+            embed = disnake.Embed(
+                title=f"{name}",
+                color=color
+            )
+            embed.add_field(name="Description", value=description, inline=False)
+            embed.add_field(name="Deadline", value=deadline, inline=True)
+            embed.add_field(name="Reward", value=reward, inline=True)
+        except Exception as e:
+            print(e)
+            embed = disnake.Embed(
+                title="Error",
+                description=f"Error",
+                color=0xE02B2B
+            )
+        await interaction.send(embed=embed)
+
+
+
+    # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
+    @commands.slash_command(
+        name="postsimple",
+        description="Simple info post",
+        options=[
+            Option(
+                name="name",
+                description="The name of the challenge",
+                type=OptionType.string,
+                required=True
+            ),
+            Option(
+                name="description",
+                description="Description of the challenge.",
+                type=OptionType.string,
+                required=False
+            ),
+            Option(
+                name="fieldname",
+                description="Field name.",
+                type=OptionType.string,
+                required=False
+            ),
+            Option(
+                name="fielddesc",
+                description="Field description.",
+                type=OptionType.string,
+                required=False
+            )]
+    )
+    # This will only allow non-blacklisted members to execute the command
+    @checks.not_blacklisted()
+    @checks.is_owner()
+    async def postsimple(self, interaction: ApplicationCommandInteraction, name: str, description: str="", fieldname: str="", fielddesc: str="") -> None:
+        try:
+            embed = disnake.Embed(
+                title=f"{name}",
+                description=f"{description}"
+            )
+            if fieldname != "":
+                embed.add_field(name=fieldname, value=fielddesc, inline=False)
+        except Exception as e:
+            print(e)
+            embed = disnake.Embed(
+                title="Error",
+                description=f"Error",
+                color=0xE02B2B
+            )
+        await interaction.send(embed=embed)
+
+
+    # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
+    @commands.slash_command(
+        name="duel1v1",
+        description="Propose a 1v1 goblin duel with another user.",
+        options=[
+            Option(
+                name="opponent",
+                description="The name of user you are challenging.",
+                type=OptionType.user,
+                required=True
+            )]
+    )
+    # This will only allow non-blacklisted members to execute the command
+    @checks.not_blacklisted()
+    async def duel1v1(self, interaction: ApplicationCommandInteraction, opponent: disnake.User) -> None:
+        useraddress = self.players[str(interaction.author.id)]["address"]
+        usergoblins = await goblinhelper.getAddressGoblins(useraddress)
+        userGoblinList = []
+        if usergoblins != None:
+            for g in usergoblins:
+                userGoblinList.append(disnake.SelectOption(label=g["name"]))
+        opponentaddress = self.players[str(opponent.id)]["address"]
+        opponentgoblins = await goblinhelper.getAddressGoblins(opponentaddress)
+        opponentGoblinList = []
+        if usergoblins != None:
+            for g in opponentgoblins:
+                opponentGoblinList.append(disnake.SelectOption(label=g["name"]))
+
+        if interaction.channel_id == 1015340771777462353:
+            view = battle.DualPostView(interaction, interaction.author, useraddress, userGoblinList, opponent, opponentaddress, opponentGoblinList, True)
+        else:
+            view = battle.DualPostView(interaction, interaction.author, useraddress, userGoblinList, opponent, opponentaddress, opponentGoblinList, False)
+
+        await interaction.send(view=view)
+
+
+    # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
+    @commands.slash_command(
+        name="traingoblins",
+        description="Train all of your goblins."
+    )
+    # This will only allow non-blacklisted members to execute the command
+    @checks.not_blacklisted()
+    async def traingoblins(self, interaction: ApplicationCommandInteraction) -> None:
+        useraddress = self.players[str(interaction.author.id)]["address"]
+        usergoblins = await goblinhelper.getAddressGoblins(useraddress)
+        if usergoblins != None:
+            for g in usergoblins:
+                userGoblinList.append(g["name"])
+        else:
+            embed = disnake.Embed(
+                title=f"{interaction.author.display_name} has no goblins to train...",
+                description=f"That's pretty sad.",
+                color=0xE02B2B
+            )
+
+        await interaction.send(embed=embed)
 
 # And then we finally add the cog to the bot so that it can load, unload, reload and use it's content.
 def setup(bot):
