@@ -1,6 +1,12 @@
 {
     "822207205201150015": {
-        "address": "xch1l5mt335uxsqtea94mssxp7ze5vvawcfdujqwq74kxqdwns9h49kqpv7vdr",
-        "name": "Gaerax"
+        "address": "xch1rjl2dc6t4m7zuq2gg7vfeyp90pg0mr5lshwec4psnwdknenck2ns7zcke2",
+        "name": "Gaerax",
+        "faction": "New King"
+    },
+    "841533163749900288": {
+        "address": "xch1lvwgalat2yk4z08seq8hut4f0dzdms4yp0q056etksvygevv2zsqyjm7d4",
+        "name": "zinga21",
+        "faction": "Lords Alliance"
     }
 }

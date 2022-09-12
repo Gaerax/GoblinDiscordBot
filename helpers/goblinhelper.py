@@ -561,6 +561,8 @@ def calculateStats(goblin, resetEXP, oldstats={}):
     stats["Body"] = attrs["Body"]
     if "Last Trained" in oldstats:
         stats["Last Trained"] = oldstats["Last Trained"]
+    else:
+        stats["Last Trained"] = 0
 
     basestats = {}
     basestats["Strength"] = strength

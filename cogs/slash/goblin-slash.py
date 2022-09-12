@@ -24,6 +24,7 @@ import aiohttp
 import json
 import random
 import math
+import time
 
 def writePlayers(players):
     f = open("players.json", "w")
@@ -63,8 +64,11 @@ class Goblin(commands.Cog, name="goblin-slash"):
     # This will only allow non-blacklisted members to execute the command
     @checks.not_blacklisted()
     async def viewusergoblins(self, interaction: ApplicationCommandInteraction, user: disnake.User):
-        player = self.players[str(user.id)]
-        goblins = await goblinhelper.getAddressGoblins(player["address"])
+        try:
+            player = self.players[str(user.id)]
+            goblins = await goblinhelper.getAddressGoblins(player["address"])
+        except:
+            goblins = None
         if goblins != None:
             current_embed = disnake.Embed(
                 title=f"{user.display_name} has {len(goblins)} Goblins",
@@ -90,7 +94,7 @@ class Goblin(commands.Cog, name="goblin-slash"):
                 await interaction.send(embed=e)
         else:
             embed = disnake.Embed(
-                title=f"{interaction.author.display_name} has no goblins...",
+                title=f"{user.display_name} has no goblins...",
                 description=f"That's pretty sad.",
                 color=0xE02B2B
             )
@@ -132,7 +136,7 @@ class Goblin(commands.Cog, name="goblin-slash"):
     # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
     @commands.slash_command(
         name="setaddress",
-        description="set your goblin army xch address",
+        description="Set your goblin army xch address",
         options=[
             Option(
                 name="address",
@@ -146,7 +150,7 @@ class Goblin(commands.Cog, name="goblin-slash"):
     async def setaddress(self, interaction: ApplicationCommandInteraction, address: str="") -> None:
 
         for playerID in self.players.keys():
-            if str(interaction.author.id) not in self.players:
+            if str(interaction.author.id) in self.players:
                 if playerID != self.players[str(interaction.author.id)]:
                     if self.players[playerID]["address"] == self.players[str(interaction.author.id)]["address"] and (playerID != str(interaction.author.id)):
                         embed = disnake.Embed(
@@ -163,20 +167,29 @@ class Goblin(commands.Cog, name="goblin-slash"):
         self.players[str(interaction.author.id)]["address"] = address
         self.players[str(interaction.author.id)]["name"] = interaction.author.name
 
-        writePlayers(self.players)
-
         random.seed(interaction.author.id)
         faction = random.randint(1, 4)
         if faction == 1:
             role = disnake.utils.find(lambda r: r.name == 'Follower of the New King', interaction.channel.guild.roles)
+            faction = "New King"
         elif faction == 2:
             role = disnake.utils.find(lambda r: r.name == 'Follower of the Old King', interaction.channel.guild.roles)
+            faction = "New King"
         elif faction == 3:
             role = disnake.utils.find(lambda r: r.name == 'Follower of the Mage Supremacy', interaction.channel.guild.roles)
+            faction = "New King"
         else:
             role = disnake.utils.find(lambda r: r.name == 'Follower of the Lords Alliance', interaction.channel.guild.roles)
+            faction = "New King"
+
+        self.players[str(interaction.author.id)]["faction"] = faction
+
+        writePlayers(self.players)
 
         await interaction.author.add_roles(role)
+
+        newbie = disnake.utils.find(lambda r: r.name == 'newbie', interaction.channel.guild.roles)
+        await interaction.author.remove_roles(newbie)
 
         embed = disnake.Embed(
             title="Address set",
@@ -190,7 +203,7 @@ class Goblin(commands.Cog, name="goblin-slash"):
     # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
     @commands.slash_command(
         name="goblindata",
-        description="Display a specific goblin and it's metadata.",
+        description="Display a specific goblin and its metadata.",
         options=[
             Option(
                 name="number",
@@ -242,7 +255,7 @@ class Goblin(commands.Cog, name="goblin-slash"):
     # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
     @commands.slash_command(
         name="goblinstats",
-        description="Display the stats of a specific goblin.",
+        description="Display the combat stats of a specific goblin.",
         options=[
             Option(
                 name="number",
@@ -458,19 +471,87 @@ class Goblin(commands.Cog, name="goblin-slash"):
     # This will only allow non-blacklisted members to execute the command
     @checks.not_blacklisted()
     async def traingoblins(self, interaction: ApplicationCommandInteraction) -> None:
-        useraddress = self.players[str(interaction.author.id)]["address"]
-        usergoblins = await goblinhelper.getAddressGoblins(useraddress)
-        if usergoblins != None:
+        try:
+            useraddress = self.players[str(interaction.author.id)]["address"]
+            usergoblins = await goblinhelper.getAddressGoblins(useraddress)
+        except:
+            usergoblins = []
+        updates = []
+        goblinlist = []
+        if len(usergoblins) >= 1:
             for g in usergoblins:
-                userGoblinList.append(g["name"])
+                data = goblinhelper.getGoblinData(g["name"].split("#")[1])
+                for attr in data["attributes"]:
+                    if attr["trait_type"] == "Faction":
+                        faction = attr["value"]
+                if faction == self.players[str(interaction.author.id)]["faction"]:
+                    goblinlist.append(g["name"].split("#")[1])
+
+            for goblinnum in goblinlist:
+                stats = goblinhelper.getGoblinStats(goblinnum)
+                now = time.time()
+                if stats["Last Trained"] + 86400 < now:
+                    gain = random.randint(20, 40)
+                    stats["Experience"] += gain
+                    updates.append(f"Goblin #{goblinnum} gained {gain}XP!")
+                stats["Last Trained"] = time.time()
+                goblinhelper.updateStats(goblinnum, stats)
+
+            if len(updates) > 0:
+                embed = disnake.Embed(
+                    title=f"{interaction.author.display_name} has trained {len(goblinlist)} goblins!",
+                    description=f"That's awesome!",
+                    color=0xE02B2B
+                )
+                for update in updates:
+                    embed.add_field(name="Goblin Trained!", value=update)
+                await interaction.send(embed=embed)
+            else:
+                embed = disnake.Embed(
+                    title=f"{interaction.author.display_name}'s goblins are tired...",
+                    description=f"Goblins can only be trained every 24 hours.",
+                    color=0xE02B2B
+                )
+                await interaction.send(embed=embed)
         else:
             embed = disnake.Embed(
                 title=f"{interaction.author.display_name} has no goblins to train...",
-                description=f"That's pretty sad.",
+                description=f"That's pretty sad. (You can only train goblins belonging to your own faction)",
                 color=0xE02B2B
             )
+            await interaction.send(embed=embed)
 
-        await interaction.send(embed=embed)
+# Here you can just add your own commands, you'll always need to provide "self" as first parameter.
+@commands.slash_command(
+    name="sendgold",
+    description="test",
+    options=[
+        Option(
+            name="opponent",
+            description="The name of user you are challenging.",
+            type=OptionType.user,
+            required=True
+        )]
+)
+# This will only allow non-blacklisted members to execute the command
+@checks.not_blacklisted()
+@checks.is_owner()
+async def sendgold(self, interaction: ApplicationCommandInteraction, opponent: disnake.User) -> None:
+    useraddress = self.players[str(interaction.author.id)]["address"]
+    usergoblins = await goblinhelper.getAddressGoblins(useraddress)
+    userGoblinList = []
+
+    await WalletRpcClient.create('localhost', uint16(self.wallet_rpc_port), DEFAULT_ROOT_PATH, self.config)
+    wallets = await wallet_client.get_wallets()
+    for wallet in wallets:
+        if
+
+    embed = disnake.Embed(
+        title=f"gold sent",
+        description=f"The gold has been sent",
+        color=0xE02B2B
+    )
+    await interaction.send(embed=embed)
 
 # And then we finally add the cog to the bot so that it can load, unload, reload and use it's content.
 def setup(bot):
