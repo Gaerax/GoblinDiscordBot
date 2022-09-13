@@ -99,8 +99,8 @@ async def status_task() -> None:
     """
     Setup the game status task of the bot
     """
-    statuses = ["with you!", "with Krypton!", "with humans!"]
-    await bot.change_presence(activity=disnake.Game(random.choice(statuses)))
+    statuses = ["Slaughtering Humans", "Sharpening Swords", "Chanting Warcries"]
+    await bot.change_presence(activity=disnake.Activity(name="asfasdf", state=statuses))
 
 
 def load_commands(command_type: str) -> None:

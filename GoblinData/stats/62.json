@@ -1,0 +1,25 @@
+{
+    "Level": 1,
+    "Experience": 0,
+    "Name": "Grinning Goblins #62",
+    "Description": "Rare Goblin Warrior",
+    "Rank": "Warrior",
+    "Faction": "Lords Alliance",
+    "Body": "Strong",
+    "Last Trained": 0,
+    "Base Stats": {
+        "Strength": 8,
+        "Dexterity": 4,
+        "Constitution": 7,
+        "Wisdom": 2,
+        "Luck": 6
+    },
+    "Battle Stats": {
+        "Attack Damage": 8,
+        "Attack Speed": 19.5,
+        "Accuracy": 12,
+        "Evasion": 7.5,
+        "Defence": 1.8,
+        "Health": 70
+    }
+}

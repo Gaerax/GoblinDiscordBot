@@ -1,0 +1,157 @@
+{
+    "format": "CHIP-0007",
+    "name": "Grinning Goblins #2649",
+    "description": "Common Goblin Warrior",
+    "sensitive_content": false,
+    "collection": {
+        "name": "Grinning Goblins",
+        "id": "9c0ee024-e961-46cd-bc09-0346ebe4c54d",
+        "attributes": [
+            {
+                "type": "description",
+                "value": "A collection of 10,001 Goblins fighting a vicious war on the Chia Blockchain."
+            },
+            {
+                "type": "icon",
+                "value": "my icon"
+            },
+            {
+                "type": "banner",
+                "value": "my banner"
+            },
+            {
+                "type": "twitter",
+                "value": "@GrinningGobins"
+            },
+            {
+                "type": "discord",
+                "value": "https://discord.gg/qXpR8W6p4A"
+            }
+        ]
+    },
+    "attributes": [
+        {
+            "trait_type": "Rank",
+            "value": "Warrior"
+        },
+        {
+            "trait_type": "Body",
+            "value": "Average"
+        },
+        {
+            "trait_type": "Head",
+            "value": "Dobby"
+        },
+        {
+            "trait_type": "Skin",
+            "value": "Blood Soaked"
+        },
+        {
+            "trait_type": "Eyes",
+            "value": "White and Pink"
+        },
+        {
+            "trait_type": "Teeth",
+            "value": "Spiked Teeth 1"
+        },
+        {
+            "trait_type": "Teeth Material",
+            "value": "Gold"
+        },
+        {
+            "trait_type": "Weapon",
+            "value": "Knife"
+        },
+        {
+            "trait_type": "Weapon Material",
+            "value": "Hammered Iron, Rusty"
+        },
+        {
+            "trait_type": "Armor Material",
+            "value": "Polished Bronze, Muddy"
+        },
+        {
+            "trait_type": "Chest Armor",
+            "value": "None"
+        },
+        {
+            "trait_type": "Upper Arm Armor",
+            "value": "None"
+        },
+        {
+            "trait_type": "Lower Arm Armor",
+            "value": "Vambraces"
+        },
+        {
+            "trait_type": "Upper Leg Armor",
+            "value": "Cuisses"
+        },
+        {
+            "trait_type": "Lower Leg Armor",
+            "value": "Greaves"
+        },
+        {
+            "trait_type": "Shirt",
+            "value": "Tanktop"
+        },
+        {
+            "trait_type": "Shirt Material",
+            "value": "Brown Patched Cloth"
+        },
+        {
+            "trait_type": "Pants",
+            "value": "Loin Cloth"
+        },
+        {
+            "trait_type": "Pants Material",
+            "value": "Red Patched Cloth"
+        },
+        {
+            "trait_type": "Piercing #1",
+            "value": "Gold Long Ring, Left Ear 3"
+        },
+        {
+            "trait_type": "Piercing #2",
+            "value": "Copper Long Ring, Left Ear 2"
+        },
+        {
+            "trait_type": "Piercing #3",
+            "value": "None"
+        },
+        {
+            "trait_type": "Piercing #4",
+            "value": "None"
+        },
+        {
+            "trait_type": "Piercing #5",
+            "value": "None"
+        },
+        {
+            "trait_type": "Pose",
+            "value": "Warrior 9"
+        },
+        {
+            "trait_type": "Background",
+            "value": "Red Stripes"
+        },
+        {
+            "trait_type": "Rarity Score",
+            "value": "66.66"
+        },
+        {
+            "trait_type": "Rarity Rank",
+            "value": "Common"
+        },
+        {
+            "trait_type": "Rarity Rank",
+            "value": "Common"
+        },
+        {
+            "trait_type": "Faction",
+            "value": "Old King"
+        }
+    ],
+    "minting_tool": "",
+    "series_number": 2649,
+    "series_total": 10001
+}

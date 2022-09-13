@@ -1,0 +1,25 @@
+{
+    "Level": 1,
+    "Experience": 100,
+    "Name": "Grinning Goblins #1487",
+    "Description": "Common Goblin Warrior",
+    "Rank": "Warrior",
+    "Faction": "Mage Supremacy",
+    "Body": "Skinny",
+    "Last Trained": 1662930424.9284608,
+    "Base Stats": {
+        "Strength": 3,
+        "Dexterity": 9,
+        "Constitution": 3,
+        "Wisdom": 6,
+        "Luck": 6
+    },
+    "Battle Stats": {
+        "Attack Damage": 5.0,
+        "Attack Speed": 27.5,
+        "Accuracy": 21,
+        "Evasion": 21,
+        "Defence": 0,
+        "Health": 30
+    }
+}

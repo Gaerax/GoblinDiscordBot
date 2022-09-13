@@ -1,0 +1,157 @@
+{
+    "format": "CHIP-0007",
+    "name": "Grinning Goblins #4707",
+    "description": "Uncommon Goblin Warrior",
+    "sensitive_content": false,
+    "collection": {
+        "name": "Grinning Goblins",
+        "id": "9c0ee024-e961-46cd-bc09-0346ebe4c54d",
+        "attributes": [
+            {
+                "type": "description",
+                "value": "A collection of 10,001 Goblins fighting a vicious war on the Chia Blockchain."
+            },
+            {
+                "type": "icon",
+                "value": "my icon"
+            },
+            {
+                "type": "banner",
+                "value": "my banner"
+            },
+            {
+                "type": "twitter",
+                "value": "@GrinningGobins"
+            },
+            {
+                "type": "discord",
+                "value": "https://discord.gg/qXpR8W6p4A"
+            }
+        ]
+    },
+    "attributes": [
+        {
+            "trait_type": "Rank",
+            "value": "Warrior"
+        },
+        {
+            "trait_type": "Body",
+            "value": "Skinny"
+        },
+        {
+            "trait_type": "Head",
+            "value": "Chad"
+        },
+        {
+            "trait_type": "Skin",
+            "value": "Red, Greasy"
+        },
+        {
+            "trait_type": "Eyes",
+            "value": "Black and Cyan"
+        },
+        {
+            "trait_type": "Teeth",
+            "value": "Spiked Teeth 2"
+        },
+        {
+            "trait_type": "Teeth Material",
+            "value": "Rough Bone"
+        },
+        {
+            "trait_type": "Weapon",
+            "value": "Dagger 2"
+        },
+        {
+            "trait_type": "Weapon Material",
+            "value": "Polished Steel"
+        },
+        {
+            "trait_type": "Armor Material",
+            "value": "Hammered Copper, Dirty"
+        },
+        {
+            "trait_type": "Chest Armor",
+            "value": "Spiked Breast Plate"
+        },
+        {
+            "trait_type": "Upper Arm Armor",
+            "value": "Rerebraces"
+        },
+        {
+            "trait_type": "Lower Arm Armor",
+            "value": "Vambraces"
+        },
+        {
+            "trait_type": "Upper Leg Armor",
+            "value": "Spiked Cuisses"
+        },
+        {
+            "trait_type": "Lower Leg Armor",
+            "value": "None"
+        },
+        {
+            "trait_type": "Shirt",
+            "value": "Short Sleeve"
+        },
+        {
+            "trait_type": "Shirt Material",
+            "value": "Mesh"
+        },
+        {
+            "trait_type": "Pants",
+            "value": "Loin Cloth"
+        },
+        {
+            "trait_type": "Pants Material",
+            "value": "Brown Patched Cloth"
+        },
+        {
+            "trait_type": "Piercing #1",
+            "value": "Iron Round Doorknocker, Right Ear 3"
+        },
+        {
+            "trait_type": "Piercing #2",
+            "value": "Silver Squard Doorknocker, Nose, Left"
+        },
+        {
+            "trait_type": "Piercing #3",
+            "value": "Silver Pointy Stud, Left Ear 1"
+        },
+        {
+            "trait_type": "Piercing #4",
+            "value": "None"
+        },
+        {
+            "trait_type": "Piercing #5",
+            "value": "None"
+        },
+        {
+            "trait_type": "Pose",
+            "value": "Warrior 12"
+        },
+        {
+            "trait_type": "Background",
+            "value": "ForestGreen"
+        },
+        {
+            "trait_type": "Rarity Score",
+            "value": "72.94"
+        },
+        {
+            "trait_type": "Rarity Rank",
+            "value": "Uncommon"
+        },
+        {
+            "trait_type": "Rarity Rank",
+            "value": "Uncommon"
+        },
+        {
+            "trait_type": "Faction",
+            "value": "Mage Supremacy"
+        }
+    ],
+    "minting_tool": "",
+    "series_number": 4707,
+    "series_total": 10001
+}

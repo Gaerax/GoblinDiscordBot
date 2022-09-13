@@ -4,6 +4,7 @@ import random
 import json
 import asyncio
 from helpers import goblinhelper
+from helpers import chiahelper
 
 
 class DualPostView(disnake.ui.View):
@@ -146,6 +147,11 @@ class DualView(disnake.ui.View):
         await self.interaction.delete_original_message()
 
     async def start_battle(self):
+        winnermessages = [
+            "To the winner go the spoils!",
+            "You army is strong!",
+            "Jingle jingle, your bag of gold gets heavier!"
+        ]
         embed = disnake.Embed(
             title="1v1 Dual",
             description=f"{self.user.mention} vs {self.opponent.mention}",
@@ -190,8 +196,8 @@ class DualView(disnake.ui.View):
 
             if changed:
                 embed.clear_fields()
-                userfighter = embed.add_field(name=self.user.display_name, value=f"{self.userbet[0]} | {userhp:.2f}hp", inline=False)
-                opponentfighter = embed.add_field(name=self.opponent.display_name, value=f"{self.opponentbet[0]} | {opponenthp:.2f}hp", inline=False)
+                userfighter = embed.add_field(name=self.user.display_name, value=f"{self.userbet[0]} | {userhp:.0f}hp", inline=False)
+                opponentfighter = embed.add_field(name=self.opponent.display_name, value=f"{self.opponentbet[0]} | {opponenthp:.0f}hp", inline=False)
                 await self.interaction.edit_original_message(embed=embed)
             changed = False
 
@@ -208,6 +214,7 @@ class DualView(disnake.ui.View):
                 "loser": opponentgoblin
             }
             if self.deathbattle:
+                winnergold = 100
                 embed = disnake.Embed(
                     title=f"{self.user.display_name} WINS!!!",
                     description=f"{self.opponent.mention} must transfer {self.opponentbet[0]} to {self.user.mention}!",
@@ -215,6 +222,7 @@ class DualView(disnake.ui.View):
                 )
                 embed.add_field(name="Winner address", value=self.useraddress, inline=False)
             else:
+                winnergold = 25
                 embed = disnake.Embed(
                     title=f"{self.user.display_name} WINS!!!",
                     description=f"{self.opponentbet[0]} has been defeated!",
@@ -222,6 +230,9 @@ class DualView(disnake.ui.View):
                 )
             embed.set_image(file=disnake.File(f"GoblinData/img/{int(self.userbet[0].split('#')[1])}.jpg"))
             await self.interaction.send(embed=embed, allowed_mentions=disnake.AllowedMentions(users=True))
+
+            embed = await chiahelper.sendgold(self.user, winnergold, self.useraddress, f"{winnergold} gold")
+            await self.interaction.send(embed=embed)
         else:
             if self.deathbattle:
                 opponentgoblin["Experience"] += 300
@@ -234,6 +245,7 @@ class DualView(disnake.ui.View):
                 "loser": usergoblin
             }
             if self.deathbattle:
+                winnergold = 100
                 embed = disnake.Embed(
                     title=f"{self.user.display_name} WINS!!!",
                     description=f"{self.opponent.mention} must transfer {self.opponentbet[0]} to {self.user.mention}!",
@@ -241,6 +253,7 @@ class DualView(disnake.ui.View):
                 )
                 embed.add_field(name="Winner address", value=self.useraddress, inline=False)
             else:
+                winnergold = 25
                 embed = disnake.Embed(
                     title=f"{self.user.display_name} WINS!!!",
                     description=f"{self.userbet[0]} has been defeated!",
@@ -249,7 +262,10 @@ class DualView(disnake.ui.View):
             embed.set_image(file=disnake.File(f"GoblinData/img/{int(self.opponentbet[0].split('#')[1])}.jpg"))
             await self.interaction.send(embed=embed, allowed_mentions=disnake.AllowedMentions(users=True))
 
-        logfile = open(f"DualLogs/{self.userbet[0].split('#')[1]}v{self.opponentbet[0].split('#')[1]}-{int(time.time())}.json", "w")
+            embed = await chiahelper.sendgold(self.opponent, winnergold, self.opponentaddress, f"{self.opponent.display_name} earned {winnergold} gold!\n{random.choice(winnermessages)}")
+            await self.interaction.send(embed=embed)
+
+        logfile = open(f"DuelLogs/{self.userbet[0].split('#')[1]}v{self.opponentbet[0].split('#')[1]}-{int(time.time())}.json", "w")
         json.dump(log, logfile, indent=4)
         logfile.close()
 

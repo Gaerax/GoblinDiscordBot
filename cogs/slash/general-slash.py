@@ -39,11 +39,6 @@ class General(commands.Cog, name="general-slash"):
             name="Bot Information"
         )
         embed.add_field(
-            name="Owner:",
-            value="Krypton#7331",
-            inline=True
-        )
-        embed.add_field(
             name="Python Version:",
             value=f"{platform.python_version()}",
             inline=True

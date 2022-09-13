@@ -1,12 +1,57 @@
 {
     "822207205201150015": {
-        "address": "xch1rjl2dc6t4m7zuq2gg7vfeyp90pg0mr5lshwec4psnwdknenck2ns7zcke2",
+        "address": "xch1p5m9zp3uttgpxcp6jpmz3cecc30r386etp08c8em55wd809x3h5qdune0h",
         "name": "Gaerax",
-        "faction": "New King"
+        "faction": "Mage Supremacy"
     },
     "841533163749900288": {
         "address": "xch1lvwgalat2yk4z08seq8hut4f0dzdms4yp0q056etksvygevv2zsqyjm7d4",
         "name": "zinga21",
         "faction": "Lords Alliance"
+    },
+    "390169421781401600": {
+        "address": "xch17sytnhdd77mqan0jh0qcl6apy5mx0q8plfmnk8m5yfcltwv9e8qqa87r07",
+        "name": "andy",
+        "faction": "New King"
+    },
+    "229355177189048320": {
+        "address": "xch1nxe0uu2f6wy7wdz0fvavl53xnpq6at5hwg94qldvky7nu3ehtzdqnhyd39",
+        "name": "Ceare",
+        "faction": "New King"
+    },
+    "120645792888389635": {
+        "address": "xch1uxukj8ffynayzcrxgxpxxdhm3zc9ve5txzlxzrag9j8l5rfgh8ms52udy0",
+        "name": "tomdav2",
+        "faction": "Mage Supremacy"
+    },
+    "204084809805332480": {
+        "address": "xch1sjccmfdte5nf4lqkzu7xz5csdyn7a3xkjnmzdlmumu87ft5fe25sgel8sp",
+        "name": "Haitch",
+        "faction": "Lords Alliance"
+    },
+    "572362512356605970": {
+        "address": "xch1mu6qqsfz7z7xaly5acrnyd9cj3scjdve44k5xxd3wc6fy999e96qvc9lhv",
+        "name": "Doct",
+        "faction": "Old King"
+    },
+    "895838503575887902": {
+        "address": "xch1c727zyl3klar9alskrmchp0r7dwtlc5yfkjpxxfw4mmkptltcvmsypt2jg",
+        "name": "petter",
+        "faction": "New King"
+    },
+    "297849647764996099": {
+        "address": "xch1y2lny93af7guksp72v40qjw0nhpphg84jr7rwq430smumh2lhjcsc0u2y2",
+        "name": "Paolo",
+        "faction": "Old King"
+    },
+    "844326434285813772": {
+        "address": "xch15lflw4yx4902fxdmpkpdlzsfsg35sts9cem0gj03rq0rr5p2tndscuju7p",
+        "name": "Effevga",
+        "faction": "Old King"
+    },
+    "476098320452943882": {
+        "address": "xch153lfrdk6j9v2s8pn8jmnlle63dq0uku4maqk2lgutzdzadw70zuq9k32lf",
+        "name": "ImamFirmansyah",
+        "faction": "Old King"
     }
 }

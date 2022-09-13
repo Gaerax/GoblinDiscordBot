@@ -1,0 +1,25 @@
+{
+    "Level": 2,
+    "Experience": 13,
+    "Name": "Grinning Goblins #1510",
+    "Description": "Common Goblin Warrior",
+    "Rank": "Warrior",
+    "Faction": "Lords Alliance",
+    "Body": "Average",
+    "Last Trained": 1662930424.9214547,
+    "Base Stats": {
+        "Strength": 6,
+        "Dexterity": 9,
+        "Constitution": 5,
+        "Wisdom": 5,
+        "Luck": 5
+    },
+    "Battle Stats": {
+        "Attack Damage": 12.8,
+        "Attack Speed": 20.4,
+        "Accuracy": 20,
+        "Evasion": 19.4,
+        "Defence": 2.4,
+        "Health": 55
+    }
+}

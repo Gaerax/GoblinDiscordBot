@@ -1,0 +1,25 @@
+{
+    "Level": 1,
+    "Experience": 0,
+    "Name": "Grinning Goblins #1138",
+    "Description": "Uncommon Goblin Warrior",
+    "Rank": "Warrior",
+    "Faction": "Lords Alliance",
+    "Body": "Skinny",
+    "Last Trained": 0,
+    "Base Stats": {
+        "Strength": 4,
+        "Dexterity": 10,
+        "Constitution": 4,
+        "Wisdom": 6,
+        "Luck": 5
+    },
+    "Battle Stats": {
+        "Attack Damage": 4,
+        "Attack Speed": 12.5,
+        "Accuracy": 21,
+        "Evasion": 3.5,
+        "Defence": 7.0,
+        "Health": 40
+    }
+}

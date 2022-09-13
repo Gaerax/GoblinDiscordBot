@@ -1,0 +1,25 @@
+{
+    "Level": 1,
+    "Experience": 86,
+    "Name": "Grinning Goblins #1500",
+    "Description": "Common Goblin Warrior",
+    "Rank": "Warrior",
+    "Faction": "New King",
+    "Body": "Strong",
+    "Last Trained": 1662930424.9244573,
+    "Base Stats": {
+        "Strength": 8,
+        "Dexterity": 4,
+        "Constitution": 8,
+        "Wisdom": 4,
+        "Luck": 5
+    },
+    "Battle Stats": {
+        "Attack Damage": 12.5,
+        "Attack Speed": 20.25,
+        "Accuracy": 13,
+        "Evasion": 10.0,
+        "Defence": 5.4,
+        "Health": 80
+    }
+}

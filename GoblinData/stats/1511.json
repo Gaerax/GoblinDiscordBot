@@ -1,0 +1,25 @@
+{
+    "Level": 1,
+    "Experience": 87,
+    "Name": "Grinning Goblins #1511",
+    "Description": "Rare Goblin Warrior",
+    "Rank": "Warrior",
+    "Faction": "Mage Supremacy",
+    "Body": "Average",
+    "Last Trained": 1662930424.9214547,
+    "Base Stats": {
+        "Strength": 6,
+        "Dexterity": 7,
+        "Constitution": 5,
+        "Wisdom": 3,
+        "Luck": 6
+    },
+    "Battle Stats": {
+        "Attack Damage": 8.7,
+        "Attack Speed": 23.5,
+        "Accuracy": 16,
+        "Evasion": 13,
+        "Defence": 1.2000000000000002,
+        "Health": 50
+    }
+}

@@ -1,0 +1,157 @@
+{
+    "format": "CHIP-0007",
+    "name": "Grinning Goblins #4169",
+    "description": "Common Goblin Warrior",
+    "sensitive_content": false,
+    "collection": {
+        "name": "Grinning Goblins",
+        "id": "9c0ee024-e961-46cd-bc09-0346ebe4c54d",
+        "attributes": [
+            {
+                "type": "description",
+                "value": "A collection of 10,001 Goblins fighting a vicious war on the Chia Blockchain."
+            },
+            {
+                "type": "icon",
+                "value": "my icon"
+            },
+            {
+                "type": "banner",
+                "value": "my banner"
+            },
+            {
+                "type": "twitter",
+                "value": "@GrinningGobins"
+            },
+            {
+                "type": "discord",
+                "value": "https://discord.gg/qXpR8W6p4A"
+            }
+        ]
+    },
+    "attributes": [
+        {
+            "trait_type": "Rank",
+            "value": "Warrior"
+        },
+        {
+            "trait_type": "Body",
+            "value": "Average"
+        },
+        {
+            "trait_type": "Head",
+            "value": "Dropped As A Baby"
+        },
+        {
+            "trait_type": "Skin",
+            "value": "Blue"
+        },
+        {
+            "trait_type": "Eyes",
+            "value": "White and Red"
+        },
+        {
+            "trait_type": "Teeth",
+            "value": "Flat Teeth Gapped"
+        },
+        {
+            "trait_type": "Teeth Material",
+            "value": "Pearly White"
+        },
+        {
+            "trait_type": "Weapon",
+            "value": "Axe 1"
+        },
+        {
+            "trait_type": "Weapon Material",
+            "value": "Mithril, Dirty"
+        },
+        {
+            "trait_type": "Armor Material",
+            "value": "Hammered Copper"
+        },
+        {
+            "trait_type": "Chest Armor",
+            "value": "None"
+        },
+        {
+            "trait_type": "Upper Arm Armor",
+            "value": "Rerebraces"
+        },
+        {
+            "trait_type": "Lower Arm Armor",
+            "value": "Spiked Vambraces"
+        },
+        {
+            "trait_type": "Upper Leg Armor",
+            "value": "None"
+        },
+        {
+            "trait_type": "Lower Leg Armor",
+            "value": "None"
+        },
+        {
+            "trait_type": "Shirt",
+            "value": "Long Sleeve"
+        },
+        {
+            "trait_type": "Shirt Material",
+            "value": "Brown Patched Cloth"
+        },
+        {
+            "trait_type": "Pants",
+            "value": "Loin Cloth"
+        },
+        {
+            "trait_type": "Pants Material",
+            "value": "Red Patched Cloth"
+        },
+        {
+            "trait_type": "Piercing #1",
+            "value": "Silver Spike Pendant, Right Ear 2"
+        },
+        {
+            "trait_type": "Piercing #2",
+            "value": "None"
+        },
+        {
+            "trait_type": "Piercing #3",
+            "value": "None"
+        },
+        {
+            "trait_type": "Piercing #4",
+            "value": "None"
+        },
+        {
+            "trait_type": "Piercing #5",
+            "value": "None"
+        },
+        {
+            "trait_type": "Pose",
+            "value": "Warrior 14"
+        },
+        {
+            "trait_type": "Background",
+            "value": "Blue and Purple"
+        },
+        {
+            "trait_type": "Rarity Score",
+            "value": "65.34"
+        },
+        {
+            "trait_type": "Rarity Rank",
+            "value": "Common"
+        },
+        {
+            "trait_type": "Rarity Rank",
+            "value": "Common"
+        },
+        {
+            "trait_type": "Faction",
+            "value": "Old King"
+        }
+    ],
+    "minting_tool": "",
+    "series_number": 4169,
+    "series_total": 10001
+}
