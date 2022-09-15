@@ -1,25 +1,25 @@
 {
     "Level": 1,
-    "Experience": 39,
-    "Name": "Grinning Goblins #152",
+    "Experience": 0,
+    "Name": "Grinning Goblins #624",
     "Description": "Common Goblin Warrior",
     "Rank": "Warrior",
     "Faction": "New King",
     "Body": "Skinny",
-    "Last Trained": 1663222304.970297,
+    "Last Trained": 0,
     "Base Stats": {
-        "Strength": 3,
-        "Dexterity": 10,
+        "Strength": 5,
+        "Dexterity": 9,
         "Constitution": 3,
         "Wisdom": 6,
-        "Luck": 5
+        "Luck": 6
     },
     "Battle Stats": {
-        "Attack Damage": 4.5,
-        "Attack Speed": 27.5,
+        "Attack Damage": 5,
+        "Attack Speed": 25.15,
         "Accuracy": 21,
-        "Evasion": 19.5,
-        "Defence": 5,
+        "Evasion": 17.15,
+        "Defence": 4.95,
         "Health": 30
     }
 }

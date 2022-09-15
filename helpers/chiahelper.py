@@ -2,8 +2,11 @@
 from chia.rpc.wallet_rpc_client import WalletRpcClient
 from chia.util.default_root import DEFAULT_ROOT_PATH
 from chia.util.config import load_config_cli, load_config
-from chia.util.ints import uint16
+from chia.util.ints import uint32, uint16
 from chia.util.bech32m import decode_puzzle_hash
+from chia.wallet.util.wallet_types import WalletType
+from chia.wallet.puzzle_drivers import PuzzleInfo
+from typing import Union, Dict
 
 import disnake
 
@@ -54,10 +57,20 @@ async def offertest():
     wallet_rpc_port = config['wallet']['rpc_port']
     wallet_client = await WalletRpcClient.create('localhost', uint16(wallet_rpc_port), DEFAULT_ROOT_PATH, config)
 
-    offers = await wallet_client.get_all_offers(False)
-    for offer in offers:
-        o = await wallet_client.get_offer(offer.trade_id)
-        # o = await wallet_client.get_offer_summary(o)
-        print(o)
+    nfts = await wallet_client.list_nfts(3)
+
+    f = open("offercommands.bat", 'w')
+
+    for nft in nfts['nft_list']:
+        goblinNum = nft['chain_info'].split(".jpg")[0].split("/")[-1]
+        f.write(f"echo y|chia wallet make_offer -r 2:100 -o {nft['launcher_id'].split('0x')[1]}:1 -p ./GoblinData/offers/GrinningGoblin#{goblinNum}-100gold.offer -f 1949239784\n")
+
+
+
+
+
+
+
+
 
     wallet_client.close()

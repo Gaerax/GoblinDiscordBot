@@ -158,7 +158,7 @@ class Goblin(commands.Cog, name="goblin-slash"):
                         return
 
         justjoined = False
-        if interaction.author.id not in self.players:
+        if str(interaction.author.id) not in self.players:
             justjoined = True
             self.players[str(interaction.author.id)] = {}
 

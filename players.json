@@ -1,6 +1,6 @@
 {
     "822207205201150015": {
-        "address": "xch1p5m9zp3uttgpxcp6jpmz3cecc30r386etp08c8em55wd809x3h5qdune0h",
+        "address": "xch1809vegtwlm9wglw3qsytrux0mg7epw8zfe9svvl2sxac050y5vwqu7qvz4",
         "name": "Gaerax",
         "faction": "Mage Supremacy"
     },
@@ -52,6 +52,41 @@
     "476098320452943882": {
         "address": "xch153lfrdk6j9v2s8pn8jmnlle63dq0uku4maqk2lgutzdzadw70zuq9k32lf",
         "name": "ImamFirmansyah",
+        "faction": "Old King"
+    },
+    "379259112191426560": {
+        "address": "xch1q7c690deppz0ldcwrtvhwqn2qjvxmxuc829fs0eum969sdhpdlsqjq2v0f",
+        "name": "sunyfish",
+        "faction": "Lords Alliance"
+    },
+    "466474752501088267": {
+        "address": "xch1zdkq28y379gpp26h26ua3wewuf26ua2k45wse6zjpplephjpktlsxjjc7c",
+        "name": "Swoonzilla",
+        "faction": "Mage Supremacy"
+    },
+    "781288210545901570": {
+        "address": "xch1agp3r6qe4zhadp6h6jl348kg94t8xlnpy8n5srh5h7szhrmppekqj8g73w",
+        "name": "motzo",
+        "faction": "Lords Alliance"
+    },
+    "771510002933694514": {
+        "address": "xch1l3v66m403ae6kr48vwp9s387h7w2lspm0x6gsedvlmgpmszhxr7q72788k",
+        "name": "Scorpion",
+        "faction": "Mage Supremacy"
+    },
+    "1000843565318017185": {
+        "address": "xch1r48gnl54spm3m0vazkpfhq8gtps62z7ayh7rqh2elfp03tfvlzks8wq7s5",
+        "name": "Karltc",
+        "faction": "New King"
+    },
+    "919137112970911784": {
+        "address": "xch1cmf75x9yqnv3p9n7j6nwcmkqnhn23a0s8c9xfrp89hn2ggjaeeuqzterfh",
+        "name": "loganicusmaximus",
+        "faction": "Lords Alliance"
+    },
+    "838010841348964362": {
+        "address": "xch1my0mvufz3a6y2845ekntew4vvdt4jj7dwzgajn98g7l9f5z66cuqvs27an",
+        "name": "Joakn",
         "faction": "Old King"
     }
 }

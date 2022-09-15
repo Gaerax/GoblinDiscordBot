@@ -1,0 +1,25 @@
+{
+    "Level": 1,
+    "Experience": 0,
+    "Name": "Grinning Goblins #2332",
+    "Description": "Rare Goblin Warrior",
+    "Rank": "Warrior",
+    "Faction": "New King",
+    "Body": "Strong",
+    "Last Trained": 0,
+    "Base Stats": {
+        "Strength": 8,
+        "Dexterity": 4,
+        "Constitution": 7,
+        "Wisdom": 4,
+        "Luck": 5
+    },
+    "Battle Stats": {
+        "Attack Damage": 8,
+        "Attack Speed": 16.5,
+        "Accuracy": 13,
+        "Evasion": 5.5,
+        "Defence": 3.0,
+        "Health": 70
+    }
+}
