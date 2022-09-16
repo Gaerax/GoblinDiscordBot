@@ -8,49 +8,66 @@ async def getAddressGoblins(address):
                    'coin': 'xch',
                    'version': "1.0"
         }
-        async with session.get(f"https://api2.spacescan.io/api/nft/balance/{address}", headers=headers) as request:
-            if request.status == 200:
-                data = await request.json()
-                goblins = []
-                print(len(data["tokens"]))
-                for i, token in enumerate(data["tokens"]):
-                    if "Grinning Goblins" in token['nft_name']:
-                        num = int(token['nft_name'].split('#')[1])
-                        stats = getGoblinStats(num)
-                        emojis = ""
-                        if stats["Faction"] == "New King":
-                            emojis += "🟢"
-                        elif stats["Faction"] == "Old King":
-                            emojis += "🔴"
-                        elif stats["Faction"] == "Mage Supremacy":
-                            emojis += "🔵"
-                        else:
-                            emojis += "🟠"
-
-                        if stats["Rank"] == "Warrior":
-                            emojis += "🔪"
-                        elif stats["Rank"] == "Lieutenant":
-                            emojis += "🗡️"
-                        elif stats["Rank"] == "Captian":
-                            emojis += "⚔️"
-                        elif stats["Rank"] == "Mage":
-                            emojis += "🔮"
-                        elif stats["Rank"] == "Lord":
-                            emojis += "🛡️"
-                        elif stats["Rank"] == "King":
-                            emojis += "👑"
-
-                        if "Uncommon" in stats["Description"]:
-                            emojis += "🔹"
-                        elif "Super Rare" in stats["Description"]:
-                            emojis += "💎"
-                        elif "Rare" in stats["Description"]:
-                            emojis += "💠"
-
-                        goblins.append({"name": token['nft_name'], "id": token['inner_mod'], "emojis": emojis})
-                return goblins
+        goblins = []
+        remaining = 50
+        finished = False
+        count = -1
+        page = 0
+        while not finished:
+            page += 1
+            if remaining >= 50:
+                pagecount = 50
             else:
-                return None
+                pagecount = remaining
+            async with session.get(f"https://api2.spacescan.io/api/nft/balance/{address}?page={page}&count={pagecount}", headers=headers) as request:
+                if request.status == 200:
+                    data = await request.json()
+                    if len(data["tokens"]) < 1:
+                        break
+                    count = int(data["tokens"][1]["count"])
+                    if remaining == -1:
+                        remaining = count
+                    if remaining < 50:
+                        finished = True
+
+                    for i, token in enumerate(data["tokens"]):
+                        if token['nft_name'] != None and "Grinning Goblins" in token['nft_name']:
+                            num = int(token['nft_name'].split('#')[1])
+                            stats = getGoblinStats(num)
+                            emojis = ""
+                            if stats["Faction"] == "New King":
+                                emojis += "🟢"
+                            elif stats["Faction"] == "Old King":
+                                emojis += "🔴"
+                            elif stats["Faction"] == "Mage Supremacy":
+                                emojis += "🔵"
+                            else:
+                                emojis += "🟠"
+
+                            if stats["Rank"] == "Warrior":
+                                emojis += "🔪"
+                            elif stats["Rank"] == "Lieutenant":
+                                emojis += "🗡️"
+                            elif stats["Rank"] == "Captian":
+                                emojis += "⚔️"
+                            elif stats["Rank"] == "Mage":
+                                emojis += "🔮"
+                            elif stats["Rank"] == "Lord":
+                                emojis += "🛡️"
+                            elif stats["Rank"] == "King":
+                                emojis += "👑"
+
+                            if "Uncommon" in stats["Description"]:
+                                emojis += "🔹"
+                            elif "Super Rare" in stats["Description"]:
+                                emojis += "💎"
+                            elif "Rare" in stats["Description"]:
+                                emojis += "💠"
+
+                            goblins.append({"name": token['nft_name'], "id": token['inner_mod'], "emojis": emojis})
+        print(goblins)
+        return goblins
+
 
 def getGoblinData(goblin):
     f = open(f"./GoblinData/metadata/{goblin}.json", "r")

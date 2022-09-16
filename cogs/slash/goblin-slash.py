@@ -60,11 +60,8 @@ class Goblin(commands.Cog, name="goblin-slash"):
     # This will only allow non-blacklisted members to execute the command
     @checks.not_blacklisted()
     async def viewusergoblins(self, interaction: ApplicationCommandInteraction, user: disnake.User):
-        try:
-            player = self.players[str(user.id)]
-            goblins = await goblinhelper.getAddressGoblins(player["address"])
-        except:
-            goblins = None
+        player = self.players[str(user.id)]
+        goblins = await goblinhelper.getAddressGoblins(player["address"])
         if goblins != None:
             current_embed = disnake.Embed(
                 title=f"{user.display_name} has {len(goblins)} Goblins",

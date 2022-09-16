@@ -1,6 +1,6 @@
 {
     "822207205201150015": {
-        "address": "xch1809vegtwlm9wglw3qsytrux0mg7epw8zfe9svvl2sxac050y5vwqu7qvz4",
+        "address": "asdfsf",
         "name": "Gaerax",
         "faction": "Mage Supremacy"
     },
@@ -75,7 +75,7 @@
         "faction": "Mage Supremacy"
     },
     "1000843565318017185": {
-        "address": "xch1r48gnl54spm3m0vazkpfhq8gtps62z7ayh7rqh2elfp03tfvlzks8wq7s5",
+        "address": "xch19vxg5afgz58r4esqh42948qzmxerygj50cukanc6vgwha048lyesx8rl96",
         "name": "Karltc",
         "faction": "New King"
     },
@@ -85,8 +85,73 @@
         "faction": "Lords Alliance"
     },
     "838010841348964362": {
-        "address": "xch1my0mvufz3a6y2845ekntew4vvdt4jj7dwzgajn98g7l9f5z66cuqvs27an",
+        "address": "xch1nxuspv4zaa5krlmkq4szq5yl5ajxpmng24gupplj84l4eaqp4fuqsyv44c",
         "name": "Joakn",
         "faction": "Old King"
+    },
+    "894290539829149716": {
+        "address": "xch1ugmwxcugg2tthsldv375xxq5jqgzte089rx34puxwpfe3lesxvjq4eqsxd",
+        "name": "Sergomcs",
+        "faction": "Mage Supremacy"
+    },
+    "98865903000629248": {
+        "address": "xch167wxq277tm4qvh7f8ncjw9dcjgq0zarpcgh6vgw3wur55g94505q2nlstv",
+        "name": "nedini",
+        "faction": "Mage Supremacy"
+    },
+    "844910785478000662": {
+        "address": "xch187ak7qlfslkenfuh08l2nyx2py880l9gkw8f3h2da4tqc6yp3cqq2uzc3m",
+        "name": "rammadis",
+        "faction": "Lords Alliance"
+    },
+    "858224785304322078": {
+        "address": "xch1jhczwaakgy8ea4q0j7xctzwclqntt7dvrl48tx6cfzxpext92s2qxupak3",
+        "name": "chiaslimes",
+        "faction": "New King"
+    },
+    "91887508660445184": {
+        "address": "xch1swasjdng5uwmug4mtcp7y4ewqg2jhvdxj6dummu8uc87kykzdmzqdq06gl",
+        "name": "Theruler",
+        "faction": "Lords Alliance"
+    },
+    "511736298441015305": {
+        "address": "xch1jjxu9jc4mmdczpprty052ukvugcnklzkf58r3s9kvgghnllnsfcqrrz76m",
+        "name": "Homeisfire",
+        "faction": "Lords Alliance"
+    },
+    "935745119313858580": {
+        "address": "xch1pjyt3chp7waafrqqz7n6wudwvvdv93ds0fgwztmxdygxq6smtgnsdw0ywh",
+        "name": "tokhun95",
+        "faction": "New King"
+    },
+    "859592689987878933": {
+        "address": "xch10txwk82hv2cqxqg2t4jzaathm3d38h3nmx23gss8sp0q02fltkjsrzmy9r",
+        "name": "JanHonza",
+        "faction": "Lords Alliance"
+    },
+    "820675443949568030": {
+        "address": "xch13fz9er9pngwg08g7u8wdzpc48cppcu7evnfuzjavqz4y2p6tul7s62rtxs",
+        "name": "Karazustra",
+        "faction": "New King"
+    },
+    "846835094689284096": {
+        "address": "xch133vkamppltu7su9ey4fqygfysgetqpcelpk7e8qa4f7pv06uy25swwlzhl",
+        "name": "ZeroCool1974",
+        "faction": "Lords Alliance"
+    },
+    "839989808658120755": {
+        "address": "xch1lhtf5c4q40l4g9qu00hguglwne69ah2e7hkqmv2utldzg6gerv9sagkwe5",
+        "name": "Erwin_95",
+        "faction": "New King"
+    },
+    "890879455592054784": {
+        "address": "xch1vgkxlm9qv28ddwmcpdgcxn3rwr0qepr52p4jxrfqpe5srs4wsahs9juerh",
+        "name": "Back2Games",
+        "faction": "Old King"
+    },
+    "800091624927264788": {
+        "address": "xch19f9yn90eqj4tw7zdlrkuwlaeukuyqt8x4zf3vnmcxrvya93cf00qywscsn",
+        "name": "SON",
+        "faction": "Mage Supremacy"
     }
 }

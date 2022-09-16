@@ -1,12 +1,12 @@
 {
     "Level": 1,
-    "Experience": 28,
-    "Name": "Grinning Goblins #858",
+    "Experience": 0,
+    "Name": "Grinning Goblins #1279",
     "Description": "Common Goblin Warrior",
     "Rank": "Warrior",
-    "Faction": "Lords Alliance",
+    "Faction": "Mage Supremacy",
     "Body": "Average",
-    "Last Trained": 1663315296.3441901,
+    "Last Trained": 0,
     "Base Stats": {
         "Strength": 5,
         "Dexterity": 8,
@@ -15,11 +15,11 @@
         "Luck": 3
     },
     "Battle Stats": {
-        "Attack Damage": 5,
-        "Attack Speed": 26.6,
+        "Attack Damage": 8.6,
+        "Attack Speed": 27.25,
         "Accuracy": 15,
-        "Evasion": 13.6,
-        "Defence": 1.8,
+        "Evasion": 15,
+        "Defence": 0,
         "Health": 60
     }
 }
