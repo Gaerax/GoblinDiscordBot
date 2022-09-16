@@ -63,6 +63,6 @@ async def offertest():
 
     for nft in nfts['nft_list']:
         goblinNum = nft['chain_info'].split(".jpg")[0].split("/")[-1]
-        f.write(f"echo y|chia wallet make_offer -r 2:100 -o {nft['launcher_id'].split('0x')[1]}:1 -p ./GoblinData/offers/GrinningGoblin#{goblinNum}-100gold.offer -f 1949239784\n")
+        f.write(f"echo y|chia wallet make_offer -r 5:100 -o {nft['launcher_id']}:1 -p ./GoblinData/offers/GrinningGoblin{goblinNum}-100gold.offer -f 2081924948\n")
 
     wallet_client.close()
